@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Opexis Digital – NFC AI Landing</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<style>
+:root{
+  --blue:#004aad;
+  --line:rgba(148,163,184,.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  min-height:100vh;
+  background:url("EsgRisk@3x - Fabio Nupieri.png") center/cover no-repeat fixed;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:rgba(2,6,23,.7);
+}
+
+.phone{
+  width:100%;
+  max-width:460px;
+  height:100vh;
+  background:rgba(2,8,23,.75);
+  backdrop-filter:blur(10px);
+  padding:16px;
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  position:relative;
+  z-index:1;
+}
+
+header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.logo{
+  width:42px;height:42px;border-radius:50%;
+  background:var(--blue);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;
+}
+header div span:first-child{
+  font-size:14px;font-weight:700;letter-spacing:.08em;
+}
+header div span:last-child{
+  font-size:11px;color:#c2d4ff;
+}
+
+.card{
+  background:rgba(2,6,23,.6);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:12px;
+}
+.card h2{
+  font-size:14px;margin-bottom:6px;
+}
+.card .meta{
+  font-size:12px;margin-bottom:10px;
+  line-height:1.5;
+}
+.card a{color:#d1e3ff;text-decoration:none}
+
+.profile-photo{
+  float:right;
+  width:78px;
+  height:78px;
+  border-radius:50%;
+  object-fit:cover;
+  margin:0 0 8px 10px;
+  border:2px solid rgba(255,255,255,.6);
+}
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:center;
+}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:8px 14px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(2,6,23,.6);
+  color:#fff;
+  font-size:12px;
+  text-decoration:none;
+  cursor:pointer;
+}
+.dot{
+  width:9px;height:9px;border-radius:50%;
+  background:#fff;
+}
+
+.hero{text-align:center;}
+.hero h1{font-size:24px;margin:6px 0;}
+.hero h1 span{color:var(--blue)}
+.hero p{font-size:13px;color:#d1e3ff;}
+
+.video-box{
+  background:#000;
+  border-radius:16px;
+  overflow:hidden;
+  margin:8px 0;
+}
+video{width:100%;display:block;}
+.video-controls{display:flex;}
+.video-controls button{
+  flex:1;
+  padding:10px;
+  border:none;
+  background:#111;
+  color:#fff;
+  font-size:12px;
+  cursor:pointer;
+}
+
+.cta a{
+  display:block;
+  width:100%;
+  padding:14px;
+  text-align:center;
+  border-radius:999px;
+  background:linear-gradient(135deg,var(--blue),#001a4f);
+  color:#fff;
+  font-weight:700;
+  text-decoration:none;
+}
+
+.socials{
+  display:flex;
+  gap:8px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+footer{
+  margin-top:auto;
+  text-align:center;
+  font-size:10px;
+  color:#94a3b8;
+}
+
+.gallery-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.75);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  padding:14px;
+}
+.gallery-modal.is-open{display:flex;}
+.gallery-box{
+  width:min(520px, 96vw);
+  background:rgba(2,8,23,.92);
+  border:1px solid rgba(148,163,184,.22);
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 20px 50px rgba(0,0,0,.6);
+}
+.gallery-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 12px;
+  border-bottom:1px solid rgba(148,163,184,.18);
+}
+.gallery-title{
+  font-size:12px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#c2d4ff;
+  font-weight:700;
+}
+.gallery-close{
+  border:1px solid rgba(148,163,184,.25);
+  background:rgba(2,6,23,.45);
+  color:#fff;
+  border-radius:999px;
+  padding:7px 10px;
+  font-size:12px;
+  cursor:pointer;
+}
+.gallery-stage{
+  position:relative;
+  background:#000;
+}
+.gallery-stage img{
+  width:100%;
+  height:auto;
+  display:block;
+  max-height:62vh;
+  object-fit:contain;
+}
+.gallery-nav{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  padding:10px 12px;
+  border-top:1px solid rgba(148,163,184,.18);
+}
+.gallery-nav button{
+  flex:1;
+  border:1px solid rgba(148,163,184,.25);
+  background:rgba(2,6,23,.55);
+  color:#fff;
+  border-radius:999px;
+  padding:10px 12px;
+  font-size:12px;
+  cursor:pointer;
+}
+.gallery-dots{
+  display:flex;
+  gap:6px;
+  justify-content:center;
+  padding:0 0 12px;
+}
+.gallery-dots span{
+  width:7px;height:7px;border-radius:50%;
+  background:rgba(226,232,240,.35);
+}
+.gallery-dots span.active{
+  background:rgba(226,232,240,.95);
+}
+</style>
+</head>
+
+<body>
+<div class="phone">
+
+<header>
+  <div class="logo">O</div>
+  <div>
+    <span>Opexis Digital</span><br>
+    <span>Opportunity Nexus</span>
+  </div>
+</header>
+
+<section class="card">
+  <h2>Dott. Fabio Nupieri</h2>
+
+  <img src="immagine profilo Fabio Nupieri.jpg" alt="Dott. Fabio Nupieri" class="profile-photo">
+
+  <div class="meta">
+    <strong>Innovation & Sustainability Manager</strong><br>
+    ESG Risk Advisor | Welfare Aziendale | Finanza Sostenibile<br><br>
+
+    Sono un Innovation & Sustainability Manager iscritto negli elenchi di Accredia. Accompagno e supporto Studi Professionali, Imprese e Organizzazioni nei percorsi di innovazione sostenibile.<br><br>
+
+    Opero come referente per l’innovazione e la sostenibilità per diverse aziende, implementando piani di integrazione ESG con l’obiettivo di coniugare competitività, responsabilità e valore duraturo.<br><br>
+
+    Mi occupo anche di etica applicata all’intelligenza artificiale, promuovendo una visione umano centrica dell’innovazione. Sono appassionato di Welfare Aziendale e Finanza Sostenibile.<br><br>
+
+    <strong>Servizi ESG:</strong><br>
+    – Bilancio di Sostenibilità / Report ESG<br>
+    – Carbon Footprint di organizzazione<br>
+    – Implementazione Piani di Sostenibilità<br>
+    – Analisi Supply Chain<br>
+    – Analisi Rischio Fisico<br>
+    – Rating ESG<br><br>
+
+    <strong>Indirizzo:</strong><br>
+    Viale Europa 1<br>
+    26855 Lodi Vecchio, Lodi<br>
+    Italia<br><br>
+
+    Email: <a href="mailto:f.nupieri@esg-risk.it">f.nupieri@esg-risk.it</a><br>
+    Telefono: <a href="tel:+3908119622348">08119622348</a><br>
+    Mobile / WhatsApp: <a href="tel:+393389212824">3389212824</a><br>
+    Sito: <a href="https://insur4pro.it/" target="_blank" rel="noopener">insur4pro.it</a>
+  </div>
+
+  <div class="actions">
+    <a class="btn" href="tel:+393389212824"><span class="dot"></span>Chiama</a>
+    <a class="btn" href="mailto:f.nupieri@esg-risk.it"><span class="dot"></span>Email</a>
+    <a class="btn" href="https://wa.me/3389212824" target="_blank" rel="noopener"><span class="dot"></span>WhatsApp</a>
+    <a class="btn" href="https://insur4pro.it/" target="_blank" rel="noopener"><span class="dot"></span>Sito Web</a>
+    <a class="btn" href="https://www.facebook.com/share/1B3V8xPktv/" target="_blank" rel="noopener"><span class="dot"></span>Facebook</a>
+    <a class="btn" href="https://linkedin.com/in/fabio-nupieri-463720242" target="_blank" rel="noopener"><span class="dot"></span>LinkedIn</a>
+
+    <a class="btn" href="https://www.etabeta-ps.com/scheda-libro/fabio-nupieri/la-gestione-dei-rischi-esg-lungo-la-supply-chain-delle-strutture-sanitarie-979-12-5710-658-4-7375.html" target="_blank" rel="noopener">
+      <span class="dot"></span>Libro ESG
+    </a>
+
+    <a class="btn" href="Curriculum-Vitae-aggiornato (4) - Fabio Nupieri.pdf" download>
+      <span class="dot"></span>Scarica CV
+    </a>
+
+    <button class="btn" type="button" onclick="openGallery()">
+      <span class="dot"></span>Galleria
+    </button>
+
+    <button class="btn" onclick="saveContact()">
+      <span class="dot"></span>Salva in rubrica
+    </button>
+  </div>
+</section>
+
+<section class="hero">
+  <h1>Il marketing <span>con AI</span></h1>
+
+  <div class="video-box">
+    <video id="introVideo" autoplay playsinline muted>
+      <source src="video_intro.mp4" type="video/mp4">
+    </video>
+
+    <div class="video-controls">
+      <button onclick="enableAudio()">🔊 Attiva audio</button>
+      <button onclick="stopVideo()">⏹ Stop</button>
+    </div>
+  </div>
+
+  <p>Scopri Twynet: social professionale, AI, formazione e opportunità di business.</p>
+</section>
+
+<section class="cta">
+  <a href="ai.html">💬 Parla con l’AI</a>
+</section>
+
+<section class="socials">
+  <a class="btn" href="https://www.instagram.com/opexis.digital/" target="_blank" rel="noopener"><span class="dot"></span>Opexis IG</a>
+  <a class="btn" href="https://www.facebook.com/profile.php?id=61580851595121" target="_blank" rel="noopener"><span class="dot"></span>Opexis FB</a>
+  <a class="btn" href="https://www.linkedin.com/company/opexis/" target="_blank" rel="noopener"><span class="dot"></span>LinkedIn</a>
+</section>
+
+<footer>
+© <span id="year"></span> Opexis Digital
+</footer>
+
+</div>
+
+<div id="galleryModal" class="gallery-modal" aria-hidden="true">
+  <div class="gallery-box" role="dialog" aria-modal="true" aria-label="Galleria Foto">
+    <div class="gallery-top">
+      <div class="gallery-title">Galleria</div>
+      <button class="gallery-close" type="button" onclick="closeGallery()">✕ Chiudi</button>
+    </div>
+
+    <div class="gallery-stage">
+      <img id="galleryImg" src="" alt="Foto galleria">
+    </div>
+
+    <div class="gallery-nav">
+      <button type="button" onclick="prevPhoto()">← Precedente</button>
+      <button type="button" onclick="nextPhoto()">Successiva →</button>
+    </div>
+
+    <div class="gallery-dots" id="galleryDots" aria-hidden="true"></div>
+  </div>
+</div>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+const video = document.getElementById("introVideo");
+
+function enableAudio(){
+  video.muted = false;
+  video.volume = 1;
+  video.play();
+}
+
+function stopVideo(){
+  video.pause();
+  video.currentTime = 0;
+}
+
+function saveContact(){
+  const vcf=`BEGIN:VCARD
+VERSION:3.0
+FN:Dott. Fabio Nupieri
+N:Nupieri;Fabio;;Dott.;
+ORG:ESG Risk
+TITLE:Innovation & Sustainability Manager
+TEL;TYPE=WORK:+3908119622348
+TEL;TYPE=CELL:+393389212824
+EMAIL:f.nupieri@esg-risk.it
+URL:https://insur4pro.it/
+URL:https://www.facebook.com/share/1B3V8xPktv/
+URL:https://linkedin.com/in/fabio-nupieri-463720242
+ADR;TYPE=WORK:;;Viale Europa 1;Lodi Vecchio;Lodi;26855;Italia
+NOTE:Innovation & Sustainability Manager iscritto negli elenchi Accredia. Servizi ESG: Bilancio di Sostenibilità, Report ESG, Carbon Footprint, Piani di Sostenibilità, Analisi Supply Chain, Analisi Rischio Fisico, Rating ESG. Welfare Aziendale, Finanza Sostenibile ed etica applicata all’intelligenza artificiale.
+END:VCARD`;
+
+  const blob=new Blob([vcf],{type:"text/vcard"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;
+  a.download="fabio-nupieri.vcf";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+const galleryPhotos = [
+  { src: "facebook_1774448198890_7442575178400475899 - Fabio Nupieri.jpg", alt: "Evento Fabio Nupieri" },
+  { src: "EsgRisk@3x - Fabio Nupieri.png", alt: "ESG Risk" },
+  { src: "immagine profilo Fabio Nupieri.jpg", alt: "Fabio Nupieri" }
+];
+
+let galleryIndex = 0;
+
+const galleryModal = document.getElementById("galleryModal");
+const galleryImg = document.getElementById("galleryImg");
+const galleryDots = document.getElementById("galleryDots");
+
+function renderDots(){
+  galleryDots.innerHTML = "";
+  galleryPhotos.forEach((_, i) => {
+    const d = document.createElement("span");
+    if(i === galleryIndex) d.classList.add("active");
+    galleryDots.appendChild(d);
+  });
+}
+
+function showPhoto(index){
+  galleryIndex = (index + galleryPhotos.length) % galleryPhotos.length;
+  const p = galleryPhotos[galleryIndex];
+  galleryImg.src = p.src;
+  galleryImg.alt = p.alt;
+  renderDots();
+}
+
+function openGallery(){
+  showPhoto(galleryIndex);
+  galleryModal.classList.add("is-open");
+  galleryModal.setAttribute("aria-hidden","false");
+}
+
+function closeGallery(){
+  galleryModal.classList.remove("is-open");
+  galleryModal.setAttribute("aria-hidden","true");
+}
+
+function nextPhoto(){ showPhoto(galleryIndex + 1); }
+function prevPhoto(){ showPhoto(galleryIndex - 1); }
+
+galleryModal.addEventListener("click", (e) => {
+  if(e.target === galleryModal) closeGallery();
+});
+
+document.addEventListener("keydown", (e) => {
+  if(e.key === "Escape" && galleryModal.classList.contains("is-open")) closeGallery();
+});
+</script>
+
+</body>
+</html>
